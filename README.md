@@ -13,6 +13,7 @@ AI 产品经理（AI Product Manager）的 skills 合集。每个 skill 一个�
 | [product-insight-miner](product-insight-miner/) | 三平台（小红书 / X / Reddit）产品灵感挖掘：采集用户痛点 → 聚类 → 频率×强度优先级矩阵 → 生成单文件 HTML 洞察报告 | 挖掘产品灵感、找用户痛点、竞品吐槽调研、找产品机会 |
 | [obsidian-knowledge-saver](obsidian-knowledge-saver/) | Obsidian 知识库管理：把对话和素材沉淀为原子笔记，自动维护索引与操作日志，支持初始化 / 沉淀 / 消化 / 健康检查四种模式 | 沉淀到知识库、整理成笔记、写入 Obsidian、知识库 lint |
 | [ziven-article-cowriter](ziven-article-cowriter/) | 长文共创：把想法逐步推导成可发布的干货长文，含写作风格 DNA、逐章节共创、全文审查、Obsidian 落盘与 Excalidraw 配图 | 写公众号 / 人人都是产品经理长文、文章大纲、内容共创 |
+| [vibe-prd-writer](vibe-prd-writer/) | 把产品想法转成 10 模块项目规范（供 AI 编程 Agent 执行），自动继承 BRD/MRD 交接区，含设计规范与 Design Tokens | vibe coding、写项目规范、coding spec、把想法变成可执行文档 |
 
 ## 目录结构
 
@@ -33,7 +34,8 @@ AIPM-skill/
 - `mrd` 复用同一个脚本，在 `mrd/` 目录下用 `../brd/scripts/fetch_market_data.py` 调用；
 - `product-insight-miner` 依赖 `web_search` / `web_fetch` 工具，报告输出到当前目录的 `./outputs/`；
 - `obsidian-knowledge-saver` 的文件操作依赖 Desktop Commander MCP（`list_directory` / `read_file` / `write_file` / `create_directory` / `start_search`），未安装时需替换为等价的文件读写能力；
-- `ziven-article-cowriter` 依赖 Desktop Commander（写文件）、`web_fetch` / `web_search`，可选 `defuddle`、`notebooklm`、`obsidian-cli` 与 Excalidraw；Obsidian 路径在 skill 内以 `{{Obsidian vault 路径}}` 占位，首次使用前替换成自己的 vault 路径。
+- `ziven-article-cowriter` 依赖 Desktop Commander（写文件）、`web_fetch` / `web_search`，可选 `defuddle`、`notebooklm`、`obsidian-cli` 与 Excalidraw；Obsidian 路径在 skill 内以 `{{Obsidian vault 路径}}` 占位，首次使用前替换成自己的 vault 路径；
+- `vibe-prd-writer` 的 Phase 3 会扫描本机 skills 目录里是否装有 `design-consultation` / `web-design-pro` 等设计类 skill，命令中的 `<skills目录>` 需按你的运行环境替换。
 
 ## 新增 skill
 

@@ -5,8 +5,6 @@ description: 商业需求文档（BRD）引导式生成器——帮你在投入�
 
 # BRD Writer — 商业需求文档引导式生成器
 
-> 维护者：Ziven
-
 你是一个务实的产品策略搭档，帮用户在投入大量时间精力之前，先想清楚一个方向值不值得做。
 
 ## 核心理念
@@ -28,13 +26,13 @@ description: 商业需求文档（BRD）引导式生成器——帮你在投入�
 ### 数据来源优先级
 
 1. **用户自己提供的数据**（粘贴的原声、上传的文件、`./market_data/` 下已有的文件、`/product-insight-miner` 产出的报告）→ 优先使用
-2. **爬虫脚本自动采集**（`scripts/fetch_market_data.py`，在 skill 目录下运行）→ 用户没数据时默认调用
+2. **爬虫脚本自动采集**（`~/.claude/skills/brd/scripts/fetch_market_data.py`）→ 用户没数据时默认调用
 3. **用户手动跳过**（紧急情况）→ 允许，但必须在 BRD 头部打大标签 `⚠️ 本报告无数据支撑，结论仅供参考`
 
 ### 爬虫脚本使用方法
 
 ```bash
-python3 scripts/fetch_market_data.py "关键词1" "关键词2" "关键词3" --max 10
+python3 ~/.claude/skills/brd/scripts/fetch_market_data.py "关键词1" "关键词2" "关键词3" --max 10
 ```
 
 - 输出：`./market_data/raw_data.json` + `./market_data/raw_data.md`
@@ -151,7 +149,7 @@ C. 我有好几个方向在犹豫，你帮我都抓一遍数据再选"
 3. **调用脚本**：
 
 ```bash
-python3 scripts/fetch_market_data.py "关键词1" "关键词2" "关键词3" --max 10
+python3 ~/.claude/skills/brd/scripts/fetch_market_data.py "关键词1" "关键词2" "关键词3" --max 10
 ```
 
 4. **处理结果**：

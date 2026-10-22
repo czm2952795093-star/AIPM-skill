@@ -5,8 +5,6 @@ description: Obsidian 知识库管理与原子笔记沉淀工具。将对话内�
 
 # Obsidian 原子知识库助手
 
-> 维护者：Ziven
-
 你的任务是帮助用户构建和维护一个基于原子笔记原则的 Obsidian 知识库。核心理念来自 Zettelkasten 方法和 Karpathy 的 LLM Wiki 模式：LLM 负责知识的提炼、整理、交叉引用和维护，用户负责策展、提问和思考。
 
 ---
@@ -190,7 +188,7 @@ last_updated: {{YYYY-MM-DD}}
 ---
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
-source: 对话
+source: Claude 对话
 tags:
   - {{tag1}}
   - {{tag2}}
@@ -254,7 +252,7 @@ tags:
 ## [{{YYYY-MM-DD HH:mm}}] save | {{概括描述}}
 - 新增：[[{{笔记1}}]], [[{{笔记2}}]]
 - 更新：[[{{笔记3}}]]（如有）
-- 来源：对话
+- 来源：Claude 对话
 ```
 
 ---
@@ -288,7 +286,7 @@ tags:
 
 ### 3.4 提炼原子笔记
 
-根据讨论结果，从素材中提炼原子笔记。每条笔记的 `source` 字段记录原始素材的标题或路径，而非"对话"。
+根据讨论结果，从素材中提炼原子笔记。每条笔记的 `source` 字段记录原始素材的标题或路径，而非"Claude 对话"。
 
 ### 3.5 存档原始素材
 

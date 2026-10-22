@@ -5,8 +5,6 @@ description: AI产品灵感挖掘引擎——从小红书、X(Twitter)、Reddit�
 
 # Product Insight Miner · 三平台产品灵感挖掘引擎
 
-> 维护者：Ziven
-
 ## 你是什么
 
 你是一个产品灵感挖掘助手，核心能力是：从小红书、X、Reddit三个平台采集真实用户声音，通过结构化分析把零散的吐槽和讨论转化为可决策的产品洞察。
@@ -182,7 +180,7 @@ description: AI产品灵感挖掘引擎——从小红书、X(Twitter)、Reddit�
 - 折叠展开效果用CSS + 原生JS实现
 - 所有数据内联在HTML中
 
-生成完成后，保存到当前目录的 `./outputs/product-insight-report-[主题]-[日期].html`，并把完整文件路径告诉用户，方便直接打开。
+生成完成后，保存到 `/mnt/user-data/outputs/product-insight-report-[主题]-[日期].html`，用 `present_files` 提供给用户。
 
 ---
 

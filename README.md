@@ -8,6 +8,7 @@ AI 产品经理（AI Product Manager）的 skills 合集。每个 skill 一个�
 |---|---|---|
 | [ai-agent-prd-writer](ai-agent-prd-writer/) | AI Agent 产品 PRD 全流程撰写，支持引导模式（模糊需求逐步追问）与高效模式（信息齐备直接出稿），并带本地文件版本管理 | 写 PRD、写需求文档、功能设计、需求梳理 |
 | [ai-product-teardown](ai-product-teardown/) | AI 产品六层逆向拆解：市场 → 商业 → 用户 → 技术 → 模型 → 基础，定位是引导用户自己拆的教练 | 拆解某个 AI 产品、竞品分析、架构还原、面试准备 |
+| [brd](brd/) | 商业需求文档（BRD）引导式生成：先判断一个方向值不值得做，所有结论强制挂数据索引，自带 DuckDuckGo 采集脚本 | 写 BRD、商业需求文档、评估方向可行性、该不该做 |
 
 ## 目录结构
 
@@ -20,6 +21,11 @@ AIPM-skill/
     ├── templates/        可选，产出物模板
     └── scripts/          可选，辅助脚本
 ```
+
+## 依赖说明
+
+- `brd/scripts/fetch_market_data.py` 需要 `requests` 和 `beautifulsoup4`：`pip install requests beautifulsoup4`；
+- 该脚本默认输出到当前目录下的 `./market_data/`，在哪个目录跑就把数据落在哪里。
 
 ## 新增 skill
 

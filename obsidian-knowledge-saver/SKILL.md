@@ -385,7 +385,7 @@ tags:
 
 ## 工具使用
 
-本 skill 使用 Desktop Commander MCP 工具进行文件操作。如果用户尚未安装 Desktop Commander，提醒用户安装并配置，本 skill 不负责软件安装。
+本 skill 的文件操作优先使用 Desktop Commander MCP 工具（跨平台，Windows / macOS 都支持）。如果当前环境没有 Desktop Commander，就用 Agent 自带的文件读写工具完成等价操作（读取、写入、列目录、搜索），不要因此中断流程。
 
 常用工具操作：
 - `list_directory`：扫描目录结构

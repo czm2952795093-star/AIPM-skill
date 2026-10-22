@@ -20,7 +20,7 @@ description: AI产品逆向工程拆解引擎。当用户提到"拆解XX产品"�
 
 根据拆解进度，按需读取：
 - `templates/` 目录 — 各层级的md文件模板
-- `scripts/init_project.sh` — 项目初始化脚本
+- `scripts/init_project.py` — 项目初始化脚本（跨平台）
 
 ## 核心教学理念
 
@@ -42,7 +42,7 @@ description: AI产品逆向工程拆解引擎。当用户提到"拆解XX产品"�
 1. 用户提供产品名/链接 → **不要直接分析**
 2. `web_search` 搜索产品基本信息，用一段话确认目标产品
 3. 询问拆解意图（面试/竞品/复刻/学习）和范围（某功能/全产品）
-4. 执行 `scripts/init_project.sh` 在用户桌面创建项目文件夹
+4. 用 Python 脚本 `scripts/init_project.py` 在用户桌面创建项目文件夹（Windows：`python`；macOS / Linux：`python3`）
 5. 用 `templates/00_overview.md` 初始化拆解概览文件
 
 ### Phase 1-2：市场层 + 商业层（搜索驱动）
@@ -88,8 +88,8 @@ description: AI产品逆向工程拆解引擎。当用户提到"拆解XX产品"�
 
 ## 文件写入规范
 
-- 使用 **Desktop Commander** 的 `write_file` 和 `create_directory` 工具
-- 项目路径：`~/Desktop/{产品名}_拆解/`
+- 写文件优先用 **Desktop Commander** 的 `write_file` 和 `create_directory`；没有这个 MCP 时，用 Agent 自带的文件读写工具完成
+- 项目路径：`~/Desktop/{产品名}_拆解/`（Windows 若桌面在 OneDrive 下，用 OneDrive 的 Desktop）
 - 每完成一层，确认用户满意后写入对应序号的md文件
 - 写入前向用户展示内容摘要
 - 如果后续层级需要修改前面内容，更新对应文件并告知用户

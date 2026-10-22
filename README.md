@@ -2,6 +2,8 @@
 
 一套为 AI 产品经理打造的 Skills，覆盖从灵感发现、商业判断、需求分析到项目规范的完整链路。
 
+所有 skill 遵循 [Agent Skills](https://agentskills.io) 开放标准（`SKILL.md` + `references/` + `scripts/`），Windows 与 macOS 通用，Claude Code 与 Codex 通用。
+
 ## 为什么做这套 Skills？
 
 市面上大多数 AI 工具要么是通用模板，要么是信息聚合。它们的问题在于：**没有针对 AI 产品经理这个岗位的专业判断力。**
@@ -30,7 +32,7 @@
   ↓ 自动继承
 /vibe-prd-writer → 生成完整项目规范 → PRD/ 文件夹（10 模块 + README 导航）
   ↓ 投喂
-Claude Code / Cursor 读 PRD/README.md 开始编码
+Claude Code / Cursor / Codex 读 PRD/README.md 开始编码
 ```
 
 | Skill | 解决什么问题 | 触发方式 |
@@ -46,7 +48,7 @@ Claude Code / Cursor 读 PRD/README.md 开始编码
 BRD 和 MRD 都**严格要求数据支撑**：
 
 - **有数据就用数据**：用户粘贴原声 / 上传文件 / product-insight-miner 的产出
-- **没数据就跑爬虫**：内置 DuckDuckGo 爬虫脚本（`brd/scripts/fetch_market_data.py`），自动采集并按来源打索引前缀（X=Twitter, R=Reddit, Z=知乎, H=小红书...）
+- **没数据就跑爬虫**：内置 DuckDuckGo 爬虫脚本（`brd/scripts/fetch_market_data.py`，Python 跨平台），自动采集并按来源打索引前缀（X=Twitter, R=Reddit, Z=知乎, H=小红书...）
 - **所有结论挂索引**：`核心痛点是信息过载 [X3, R1, W5]`，每个索引可回溯到原始数据
 - **禁止捏造**：没有数据支撑的数字/比例/增长率，一律不写
 
@@ -54,7 +56,7 @@ BRD 和 MRD 都**严格要求数据支撑**：
 
 - 输出 `PRD/` 文件夹（10 模块独立文件 + README 导航），AI Agent 按需加载，不一次性塞爆上下文
 - 自动继承 BRD.md / MRD.md / DESIGN.md 的数据
-- Phase 3 会扫描你已安装的前端设计 skill（design-consultation / web-design-pro），避免重复造轮子
+- Phase 3 会扫描已安装的前端设计 skill（design-consultation / web-design-pro），避免重复造轮子
 - 三层自检：文件结构完整性 / 各模块内容质量 / 跨文件一致性
 
 ### 能力建设
@@ -74,27 +76,44 @@ BRD 和 MRD 都**严格要求数据支撑**：
 
 ## 快速开始
 
-### 第一步：安装 Claude Desktop 或 Claude Code
+### 第一步：装好 Agent
 
-- **Claude Desktop**：前往 [claude.ai/download](https://claude.ai/download) 下载，开启 Cowork 模式
-- **Claude Code（CLI）**：`npm install -g @anthropic-ai/claude-code`
+- **Claude Code**：`npm install -g @anthropic-ai/claude-code`
+- **Codex CLI**：`npm install -g @openai/codex`
 
-### 第二步：安装 Skills
+### 第二步：把 skill 放进 skills 目录
 
-**方式 A：手动安装（推荐）**
+两个工具读的是同一套 `SKILL.md`，只是目录不同：
 
-1. 点击本仓库页面的绿色 **Code** 按钮 → **Download ZIP**，解压
-2. 把你要的 Skill 文件夹复制到 `~/.claude/skills/` 下
-3. 重启 Claude Code 或开启新对话即可生效
+| Agent | macOS / Linux | Windows |
+|---|---|---|
+| Claude Code | `~/.claude/skills/<skill-name>/` | `C:\Users\<你>\.claude\skills\<skill-name>\` |
+| Codex | `~/.codex/skills/<skill-name>/` | `C:\Users\<你>\.codex\skills\<skill-name>\` |
 
-**方式 B：Cowork 模式安装（Claude Desktop）**
+**macOS / Linux：**
 
-1. 在 Cowork 模式下，点击 **Skills** → **Add Skill**
-2. 选择你要安装的 Skill 文件夹
+```bash
+mkdir -p ~/.claude/skills ~/.codex/skills
+cp -R brd ~/.claude/skills/
+cp -R brd ~/.codex/skills/
+```
+
+**Windows（PowerShell）：**
+
+```powershell
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.claude\skills" | Out-Null
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.codex\skills"  | Out-Null
+Copy-Item -Recurse brd "$env:USERPROFILE\.claude\skills\"
+Copy-Item -Recurse brd "$env:USERPROFILE\.codex\skills\"
+```
+
+装完重启 Agent 或开新会话生效。
+
+> `obsidian-knowledge-saver` 和 `ziven-article-cowriter` 优先用 **Desktop Commander MCP** 做文件读写；没有该 MCP 时自动退回 Agent 自带的文件工具，不影响使用。
 
 ### 第三步：直接用自然语言触发
 
-不需要记任何命令。直接说你想做的事：
+Claude Code 里可以直接 `/skill-name` 调用；Codex 里用 `$skill-name` 或直接描述需求。正常说法就行：
 
 ```
 "这个方向值不值得做"          → BRD
@@ -115,7 +134,7 @@ BRD 和 MRD 都**严格要求数据支撑**：
 2. 判方向 → brd（评估值不值得做，跑爬虫补数据）
 3. 理需求 → mrd（梳理 P0/P1/P2 需求优先级）
 4. 出规范 → vibe-prd-writer（生成 PRD/ 文件夹，直接喂给 AI Agent）
-5. 写代码 → 把 PRD/ 丢进 Claude Code / Cursor 开干
+5. 写代码 → 把 PRD/ 丢进 Claude Code / Codex / Cursor 开干
 ```
 
 ### 路径 B：单点能力
@@ -128,12 +147,16 @@ BRD 和 MRD 都**严格要求数据支撑**：
 
 两条路径可以并行，沉淀下来的知识会在下一次产品判断里复用。
 
+## 环境要求
+
+- **Python 3**：`brd` / `mrd` 的采集脚本、`ai-product-teardown` 的初始化脚本需要。Windows 用 `python`，macOS / Linux 用 `python3`
+- **网络**：`product-insight-miner` 走 `web_search` / `web_fetch`；`brd` / `mrd` 走 DuckDuckGo 网页接口
+- **可选 MCP**：Desktop Commander（Obsidian 落盘更稳）、Excalidraw（配图）
+
 ## 前置依赖
 
-- **BRD / MRD 爬虫功能**：需要 `pip install requests beautifulsoup4`（首次使用时 Skill 会提醒）
-- **obsidian-knowledge-saver**：依赖 Desktop Commander MCP 工具进行本地文件读写
-- **ziven-article-cowriter**：依赖 Desktop Commander 写文件，可选 `defuddle`、`notebooklm`、`obsidian-cli` 与 Excalidraw；使用前把 `{{Obsidian vault 路径}}` 换成你自己的 vault 路径
-- 其他 Skill 无额外依赖
+- `brd` / `mrd` 爬虫：`pip install requests beautifulsoup4`
+- 其他 skill 无额外 Python 依赖
 
 ## 关于
 

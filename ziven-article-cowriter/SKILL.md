@@ -179,11 +179,14 @@ description: Ziven的AI/产品知识科普长文共创助手。用于在人人�
 {{Obsidian vault 路径}}/11_输出/{{文件名}}.md
 ```
 
+- 把 `{{Obsidian vault 路径}}` 换成你自己的 vault 绝对路径：macOS 形如 `/Users/你的用户名/Obsidian/笔记库`，Windows 形如 `D:\Obsidian\笔记库`
+- 路径分隔符用当前系统原生的（Windows 用 `\`，macOS / Linux 用 `/`）
+
 **文件命名**：`YYYYMMDD-文章主题简称.md`，如 `20260312-示例主题.md`
 
 **输出前流程**：
 1. 在对话中展示完整的最终文章
-2. 确认Ziven满意后，使用 Desktop Commander 的 `write_file` 写入
+2. 确认Ziven满意后，写入文件：有 Desktop Commander 就用它的 `write_file`，没有就用 Agent 自带的写文件工具
 3. 写入后用 `read_file` 或 `get_file_info` 回读确认
 
 **输出格式**：纯Markdown，包含：

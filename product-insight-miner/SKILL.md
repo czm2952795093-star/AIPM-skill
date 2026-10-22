@@ -180,7 +180,7 @@ description: AI产品灵感挖掘引擎——从小红书、X(Twitter)、Reddit�
 - 折叠展开效果用CSS + 原生JS实现
 - 所有数据内联在HTML中
 
-生成完成后，保存到 `/mnt/user-data/outputs/product-insight-report-[主题]-[日期].html`，用 `present_files` 提供给用户。
+生成完成后，保存到当前目录下的 `outputs/product-insight-report-[主题]-[日期].html`（不存在就创建 `outputs/`），并把完整文件路径告诉用户，方便直接打开。
 
 ---
 

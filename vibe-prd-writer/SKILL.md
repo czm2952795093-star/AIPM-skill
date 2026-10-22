@@ -37,8 +37,8 @@ PRD 是产品决策链的第三步：
 
 本 skill 有两份参考文件，生成 PRD 时**必须加载**：
 
-- `~/.claude/skills/vibe-prd-writer/references/module-specs.md`——定义 10 个模块的完整生成规范。Phase 4 写 PRD 时按这个模板输出。
-- `~/.claude/skills/vibe-prd-writer/references/style-guide.md`——定义前端风格定调的 4 套方案生成流程。Phase 3 做设计规范时按这个流程走。
+- `references/module-specs.md`——定义 10 个模块的完整生成规范。Phase 4 写 PRD 时按这个模板输出。
+- `references/style-guide.md`——定义前端风格定调的 4 套方案生成流程。Phase 3 做设计规范时按这个流程走。
 
 **时机**：进入 Phase 3 之前加载 `style-guide.md`；进入 Phase 4 之前加载 `module-specs.md`。不要在 Phase 0 就加载，避免污染上下文。
 
@@ -197,10 +197,18 @@ B. 你直接告诉我 V1 要做的 3 个核心功能，我基于 BRD + 你的输
 
 #### 步骤 1：扫描已安装的前端设计参考 skill
 
-进入 Phase 3 时，主动扫描 `~/.claude/skills/` 下的前端设计相关 skill：
+进入 Phase 3 时，主动扫描你的 Agent 的 skills 目录下的前端设计相关 skill（Claude Code：`~/.claude/skills/`；Codex：`~/.codex/skills/`）。
+
+macOS / Linux：
 
 ```bash
-ls ~/.claude/skills/ | grep -iE "design|ui|theme"
+ls ~/.codex/skills/ | grep -iE "design|ui|theme"
+```
+
+Windows（PowerShell）：
+
+```powershell
+Get-ChildItem "$env:USERPROFILE\.codex\skills" -Directory | Where-Object Name -match "design|ui|theme"
 ```
 
 **优先级映射**（找到哪个就读哪个的 SKILL.md 作为方法论参考）：
@@ -211,9 +219,9 @@ ls ~/.claude/skills/ | grep -iE "design|ui|theme"
 | 🥈 次高 | `web-design-pro` | 强调"先建设计规范再写代码"，有成熟的 design token 提取流程 |
 | 🥉 参考 | `design-html` / `design-shotgun` / `design-review` / `plan-design-review` | 领域知识参考，按需读取 |
 
-如果找到 `design-consultation`，读取它的 `SKILL.md`（`~/.claude/skills/design-consultation/SKILL.md`），把它的方法论作为 Phase 3 的"教科书"——遇到分歧时 design-consultation 的规范优先于 vibe-prd-writer 自带的 style-guide.md。
+如果找到 `design-consultation`，读取它目录下的 `SKILL.md`，把它的方法论作为 Phase 3 的"教科书"——遇到分歧时 design-consultation 的规范优先于 vibe-prd-writer 自带的 style-guide.md。
 
-**同时扫描 marketplace / plugin 形式的设计 skill**（这些不在 `~/.claude/skills/` 目录下，但会在当前会话的系统提示里出现）：
+**同时扫描 marketplace / plugin 形式的设计 skill**（这些不在 skills 目录下，但会在当前会话的系统提示里出现）：
 
 - `design:design-system`（审计/扩展设计系统）
 - `design:design-handoff`（生成开发者交付规格）
@@ -298,7 +306,7 @@ C. **我直接粘贴现有的设计规范给你**
 
 ### Phase 4：生成 PRD/ 文件夹（渐进式披露结构）
 
-**加载** `~/.claude/skills/vibe-prd-writer/references/module-specs.md`，按里面定义的"必含字段"和"写作规范"生成每个模块的内容。
+**加载** `references/module-specs.md`，按里面定义的"必含字段"和"写作规范"生成每个模块的内容。
 
 **🎯 核心思路**：不生成单个 `PRD.md`，而是生成 `PRD/` 文件夹，每个模块拆成独立文件。AI 编程 Agent 实际做项目时，按任务阶段加载对应文件——这是渐进式披露，让 Agent 在需要时按需读取，避免一次性塞入所有上下文。
 
@@ -584,7 +592,7 @@ PRD/ 文件夹生成完后，**分两层自检**：先检查文件结构完整�
 - **一次只问一个问题**——绝不一口气抛 5 个问题让用户填空
 - **继承上游数据**——有 BRD/MRD 就读，不重复问
 - **加载 references 文件**——Phase 3 必须读 style-guide.md（作为兜底），Phase 4 必须读 module-specs.md
-- **Phase 3 前必须扫描前端设计 skill 生态**——先查 `~/.claude/skills/` 下有没有 design-consultation / web-design-pro 等更成熟的 skill，有就读它们的 SKILL.md 作为方法论参考
+- **Phase 3 前必须扫描前端设计 skill 生态**——先查 skills 目录（Claude Code：`~/.claude/skills/`；Codex：`~/.codex/skills/`）下有没有 design-consultation / web-design-pro 等更成熟的 skill，有就读它们的 SKILL.md 作为方法论参考
 - **Phase 3 前必须检测 `DESIGN.md`**——有就继承，不重复让用户选风格偏好
 - **帮用户砍需求**——用户想加功能时，默认立场是"先不做，放 V2"
 - **不做决策**——技术选型给建议，但最终听用户的

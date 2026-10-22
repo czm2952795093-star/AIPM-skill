@@ -42,14 +42,16 @@ MRD 会自动检测当前目录是否有 `BRD.md`。如果有，读取其中的�
 
 1. **从 BRD 继承的数据**：如果当前目录有 `BRD.md`，读取其交接区中的 `data_source_path`（通常是 `./market_data/raw_data.md`），直接复用
 2. **用户已有的数据**：`./market_data/raw_data.md`、粘贴的原声、`/product-insight-miner` 的产出
-3. **爬虫脚本自动采集**：`~/.claude/skills/brd/scripts/fetch_market_data.py`（与 BRD 共享同一个脚本）
+3. **爬虫脚本自动采集**：`../brd/scripts/fetch_market_data.py`（与 BRD 共享同一个脚本，需 brd 与本 skill 同级安装）
 4. **用户手动跳过**：允许，但文档头部打 `⚠️ 本 MRD 无数据支撑，指标体系为推测，仅供参考` 大标签
 
 ### 爬虫脚本使用方法
 
 ```bash
-python3 ~/.claude/skills/brd/scripts/fetch_market_data.py "关键词1" "关键词2" --max 10
+python ../brd/scripts/fetch_market_data.py "关键词1" "关键词2" --max 10
 ```
+
+- 在 `mrd/` 目录下运行；命令里的 `python` 按环境替换：macOS / Linux 通常是 `python3`，Windows 通常是 `python` 或 `py`
 
 - 输出：`./market_data/raw_data.json` + `./market_data/raw_data.md`
 - 索引前缀：X=X/Twitter、R=Reddit、Z=知乎、H=小红书、P=ProductHunt、N=HackerNews、M=Medium、J=掘金、C=CSDN、B=微博、W=其他
@@ -160,7 +162,7 @@ D. 我有一批调研数据，想从数据里分析市场需求"
 3. **调用脚本**：
 
 ```bash
-python3 ~/.claude/skills/brd/scripts/fetch_market_data.py "关键词1" "关键词2" "关键词3" --max 10
+python ../brd/scripts/fetch_market_data.py "关键词1" "关键词2" "关键词3" --max 10
 ```
 
 4. **处理结果**：
